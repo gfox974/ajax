@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tests ajax</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li id="first">first</li>
+            <li id="second">second</li>
+            <li id="form">form php (post)</li>
+        </ul>
+    </nav>
+    <div id="main">
+        <p>[ Dans le div: main, si tu vois ca : soucis ]</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        //$(function($) {
+        //
+        //})(jQuery) // on definit $ comme etant un appel a JQuery
+        
+        $(function() {
+            // exo:
+            // charger tout de suite le first
+            $('#first').on("click", function() {
+                //$('#main').load("partials/first.html");
+                // la meme que ci-dessus mais en methode GET
+                //$.get("partials/first.html").done(function(data){ // .done dans le cas ou le get est bon ->
+                    $.get("partials/temp.json").done(function(data){ // mumuse en json
+                    console.log(data);
+                    //$('#main').html(data);
+                    $('#main').html(data.nom);
+                })
+                .fail(function(){ // .fail pour gerer le cas ou le get foire ->
+                    $('#main').html("ERREUR");
+                })
+                .always(function(){ // .always s'execute quoi qu'il arrive
+                    console.log('requete get executée');
+                })
+            })
+            
+            $('#second').on("click", function() {
+                //$('#main').text('chargement en cours ..');
+                //$('#main').html('<p>chargement en cours ..</p>');
+                $('#main').load('partials/chargement.html'); // permets de ne pas se taper les blocks xhr
+                // caler un delais de 5sc avant de load le 2eme
+             /* MyBlock, works
+                console.log('ticked');
+                $('#main').queue(function(){
+                    setTimeout(function(){
+                        $('#main').load("partials/second.html").dequeue();
+                    }, 5000 );
+                });
+            */
+                setTimeout(() => $('#main').load("partials/second.html"), 5000);  
+            }) 
+
+            $('#form').on("click", function() {
+                $('#main').load('partials/formulaire.html');
+            })
+
+        })
+        
+    </script>
+</body>
+</html>

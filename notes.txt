@@ -1,0 +1,10 @@
+jquery / ajax est dispo sous forme d'appel cdn, ou en npm / ressources locales
+
+permet de refresh un contenu localisé de maniere transparente
+
+les methodes jquery se basent sur le xhr de javascript, et prends en compte les verbes http
+
+
+---
+git hints
+---

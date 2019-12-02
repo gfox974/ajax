@@ -1,0 +1,19 @@
+<!-- On va faire un formulaire pour interagir avec php, MAIS via ajax -->
+    <label for="userChoice">Entrer des données:</label><br>
+    <input type="text" id="userChoice">
+    <button id="send">Envoyer</button>
+<!-- dans les best practices, on ne calera pas des id partout mais on reagira au submit -->
+<!-- Exo : ce qu'on met en input ne declenche pas de refresh de la page, et restitue les données saisies en inversé -->
+
+<script>
+    // partie data du form
+    $('#send').on("click", function() {
+        let param = $('#userChoice').val();
+        console.log(param);
+        $.post("php/reverse.php", {data: param})
+        .done(function(data){
+            console.log(data);
+        })
+        .fail()
+    })
+</script>
