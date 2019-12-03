@@ -12,6 +12,7 @@
             <li id="first">first</li>
             <li id="second">second</li>
             <li id="form">form php (post)</li>
+            <li id="formaj">form ajax (post)</li>
         </ul>
     </nav>
     <div id="main">
@@ -61,6 +62,10 @@
 
             $('#form').on("click", function() {
                 $('#main').load('partials/formulaire.html');
+            })
+
+            $('#formaj').on("click", function() {
+                $('#main').load('partials/formulaire_vajax.html');
             })
 
         })

@@ -16,7 +16,8 @@
 </div>
 
 <?php
-if (!isset($logged)) {
+$logged = false;
+if (!$logged) {
 ?>
     <form method="post"> 
         <label for="login">Login</label><br>
@@ -40,21 +41,22 @@ if (!isset($logged)) {
 $(function(){
     $('form').on("submit", function(event) {
         console.log($(this).serialize());
-        event.preventDefault();
-        $.ajax({
+        event.preventDefault(); // desactive le comportement de base de la page html en cas d'evenement declenché (pas de reload)
+        $.ajax({ // ajax est asynchrone
             url: "traitement.php",
             method: "POST",
-            data: $(this).serialize(),
+            data: $(this).serialize()
             //dataType: "html",
-            }).done(function (data) {
-                console.log("query OK:", data); // ici data va devenir le retour de la requete
-                if (data == "LOG"){
-                    $("#resultat").html("<h2> logging OK !</h2>");
-                    $("form").remove();
-                } else {
-                    $("#resultat").html("<h2> logging NOK !</h2>");
-                }
-            })            
+        })
+        .done(function (data) {
+            console.log("query done:", data); // ici data va devenir le retour de la requete
+            if (data == "LOG GRANTED"){
+                $("#resultat").html("<h2> logging OK !</h2>");
+                $("form").remove();
+            } else {
+                $("#resultat").html("<h2> logging NOK !</h2>");
+            }
+        })            
     });
 })
 </script>    

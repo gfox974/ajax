@@ -1,0 +1,53 @@
+    <label for="userChoice">Inverser ca:</label><br>
+    <input type="text" id="userChoice">
+    <button id="send">Go</button>
+    <br>
+    <label for="userText">Virer les e:</label><br>
+    <textarea id="userText" cols="30" rows="10"></textarea>
+    <button id="sende">Go</button>
+
+
+<div id="resultat">
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>
+$(function(){
+    $('#send').on("click", function(event) {
+        let param = $("#userChoice").val();
+        event.preventDefault();
+        $.ajax({
+            url: "php/reverse.php",
+            method: "POST",
+            data: "data="+param
+        })
+        .done(function (data) {
+            console.log("query done:", data);
+            if (data){
+                $("#userChoice").val(data);
+            } else {
+                $("#resultat").html("...");
+            }
+        })            
+    });
+
+    $('#sende').on("click", function(event) {
+        let param = $("#userText").val();
+        event.preventDefault();
+        $.ajax({
+            url: "php/reverse.php",
+            method: "POST",
+            data: "trime="+param
+        })
+        .done(function (data) {
+            console.log("query done:", data);
+            if (data){
+                $("#userText").val(data);
+            } else {
+                $("#resultat").html("...");
+            }
+        })            
+    });
+})
+</script>
